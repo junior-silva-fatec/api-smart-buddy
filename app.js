@@ -19,8 +19,8 @@ console.log(`Servidor iniciado em http://localhost:${porta}`); */
 const userRouter = require("./routes/userRoutes");
 app.use("/users", userRouter);
 
-// mongoose.connect(process.env.MONGO_URI, {
-  mongoose.connect("mongodb+srv://araujosilva:07BYokfYZCGr4QTO@clusteraulaintegracao.hlirbyy.mongodb.net/?retryWrites=true&w=majority&appName=ClusterAulaIntegracao", {
+mongoose.connect(process.env.MONGO_URI, {
+  //mongoose.connect("mongodb+srv://araujosilva:07BYokfYZCGr4QTO@clusteraulaintegracao.hlirbyy.mongodb.net/?retryWrites=true&w=majority&appName=ClusterAulaIntegracao", { // funcionou assim
   
   useNewUrlParser: true,
   useUnifiedTopology: true,
