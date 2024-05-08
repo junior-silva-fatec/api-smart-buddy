@@ -9,6 +9,8 @@ const userRouter = require("./routes/userRoutes");
 app.use("/users", userRouter);
 const eventRouter = require("./routes/eventRoutes");
 app.use("/events", eventRouter);
+const loginRouter = require("./routes/loginRoutes");
+app.use("/login", loginRouter);
 
 mongoose.connect(process.env.MONGO_URI, {  
   useNewUrlParser: true,
