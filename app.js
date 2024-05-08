@@ -6,12 +6,15 @@ require("dotenv/config");
 const app = express();
 app.use(express.json());
 
+/*
 const corsOptions = {
   origin: process.env.URL_REACT_LOCAL, // Substitua pelo domínio do seu aplicativo React
   optionsSuccessStatus: 200 // Algumas versões do CORS exigem isso
 };
-
 app.use(cors(corsOptions));
+*/
+
+app.use(cors());
 
 const userRouter = require("./routes/userRoutes");
 app.use("/users", userRouter);
