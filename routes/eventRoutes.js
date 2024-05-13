@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 // Rota para obter um event por ID
 router.get("/:id", getEvent, (req, res) => {
-  res.json(res.user);
+  res.json(res.event);
 });
 
 // Rota para criar um novo event
@@ -84,7 +84,7 @@ async function getEvent(req, res, next) {
   try {
     const event = await Event.findById(req.params.id)
     if (event == null) {
-      return res.status(404).json({message: 'Usuário não encontrado'})
+      return res.status(404).json({message: 'Evento não encontrado'})
     }
     res.event = event;
     next()

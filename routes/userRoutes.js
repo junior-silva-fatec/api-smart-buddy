@@ -19,7 +19,7 @@ router.get("/:id", getUser, (req, res) => {
 
 // Rota para criar um novo user
 router.post("/", async (req, res) => {
-  const contato = new User({    
+  const user = new User({    
     email: req.body.email,
     password: req.body.password,
   });
