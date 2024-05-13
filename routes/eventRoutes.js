@@ -66,19 +66,17 @@ router.put("/:id", getEvent, async (req, res) => {
   }
 });
 
-// Rota para excluir um user por ID
+/// Rota para excluir um evento por ID
 router.delete("/:id", getEvent, async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
-    if (event == null) {
-      return res.status(404).json({ message: "Evento não encontrado" });
-    }
-    res.event = event;
-    next();
+    await res.event.deleteOne(); // Ou você pode usar findOneAndDelete()
+    res.json({ message: "Evento deletado com sucesso" });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 });
+
+
 
 async function getEvent(req, res, next) {
   try {
