@@ -75,6 +75,21 @@ router.delete("/:id", getEvent, async (req, res) => {
   }
 });
 
+// Rota para obter eventos por owner
+router.get("/owner/:owner", async (req, res) => {
+  try {
+    const events = await Event.find({ owner: req.params.owner });
+    if (events.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "Nenhum evento encontrado para este proprietário" });
+    }
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 async function getEvent(req, res, next) {
   try {
     const event = await Event.findById(req.params.id);
