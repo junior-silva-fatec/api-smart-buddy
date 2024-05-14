@@ -19,7 +19,7 @@ router.get("/:id", getEvent, (req, res) => {
 
 // Rota para criar um novo event
 router.post("/", async (req, res) => {
-  const event = new Event({    
+  const event = new Event({
     title: req.body.title,
     description: req.body.description,
     date: req.body.date,
@@ -38,28 +38,27 @@ router.post("/", async (req, res) => {
 
 // Rota para atualizar um event por ID
 router.put("/:id", getEvent, async (req, res) => {
-  
   if (req.body.title != null) {
-    res.contato.title = req.body.title;
+    res.event.title = req.body.title;
   }
   if (req.body.description != null) {
-    res.contato.description = req.body.description;
+    res.event.description = req.body.description;
   }
   if (req.body.date != null) {
-    res.contato.date = req.body.date;
+    res.event.date = req.body.date;
   }
   if (req.body.duration != null) {
-    res.contato.duration = req.body.duration;
+    res.event.duration = req.body.duration;
   }
   if (req.body.time != null) {
-    res.contato.time = req.body.time;
+    res.event.time = req.body.time;
   }
   if (req.body.owner != null) {
-    res.contato.owner = req.body.owner;
+    res.event.owner = req.body.owner;
   }
 
   try {
-    const updateEvent = await res.event.save();
+    const updatedEvent = await res.event.save();
     res.json(updatedEvent);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -76,18 +75,16 @@ router.delete("/:id", getEvent, async (req, res) => {
   }
 });
 
-
-
 async function getEvent(req, res, next) {
   try {
-    const event = await Event.findById(req.params.id)
+    const event = await Event.findById(req.params.id);
     if (event == null) {
-      return res.status(404).json({message: 'Evento não encontrado'})
+      return res.status(404).json({ message: "Evento não encontrado" });
     }
     res.event = event;
-    next()
+    next();
   } catch (err) {
-    return res.status(500).json({message: err.message})
+    return res.status(500).json({ message: err.message });
   }
 }
 
