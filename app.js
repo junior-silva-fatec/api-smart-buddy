@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 const urlReactLocal = "http://localhost:5173"
-const urlReactRemoto = "https://smart-buddy.vercel.app/"
+const urlReactRemoto = "https://smart-buddy.vercel.app"
 
 const corsOptions = {
   //origin: [process.env.URL_REACT_LOCAL, process.env.URL_REACT_ONLINE], // Inclua a URL do frontend online
