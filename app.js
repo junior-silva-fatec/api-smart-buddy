@@ -11,7 +11,7 @@ const urlReactRemoto = "https://smart-buddy.vercel.app"
 
 const corsOptions = {
   //origin: [process.env.URL_REACT_LOCAL, process.env.URL_REACT_ONLINE], // Inclua a URL do frontend online
-  origin: true,
+  origin: urlReactLocal,
   optionsSuccessStatus: 200 // Algumas versões do CORS exigem isso
 };
 app.use(cors(corsOptions));
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
