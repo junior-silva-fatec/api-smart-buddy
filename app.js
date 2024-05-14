@@ -11,7 +11,7 @@ const urlReactRemoto = "https://smart-buddy.vercel.app"
 
 const corsOptions = {
   //origin: [process.env.URL_REACT_LOCAL, process.env.URL_REACT_ONLINE], // Inclua a URL do frontend online
-  origin: [urlReactLocal, urlReactRemoto], // Inclua a URL do frontend online
+  origin: true,
   optionsSuccessStatus: 200 // Algumas versões do CORS exigem isso
 };
 app.use(cors(corsOptions));
