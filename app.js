@@ -1,22 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
 require("dotenv/config");
 
 const app = express();
 app.use(express.json());
 
-const urlReactLocal = "http://localhost:5173"
-const urlReactRemoto = "https://smart-buddy.vercel.app"
-
 const corsOptions = {
-  //origin: [process.env.URL_REACT_LOCAL, process.env.URL_REACT_ONLINE], // Inclua a URL do frontend online
-  origin: urlReactLocal,
-  optionsSuccessStatus: 200 // Algumas versões do CORS exigem isso
+  origin: [process.env.URL_REACT_LOCAL, process.env.URL_REACT_ONLINE],
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-
-//app.use(cors());
 
 const userRouter = require("./routes/userRoutes");
 app.use("/users", userRouter);
@@ -25,7 +19,7 @@ app.use("/events", eventRouter);
 const loginRouter = require("./routes/loginRoutes");
 app.use("/login", loginRouter);
 
-mongoose.connect(process.env.MONGO_URI, {  
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
