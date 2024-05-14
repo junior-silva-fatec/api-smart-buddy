@@ -6,9 +6,12 @@ require("dotenv/config");
 const app = express();
 app.use(express.json());
 
+const urlReactLocal = "http://localhost:5173"
+const urlReactRemoto = "https://smart-buddy.vercel.app/"
 
 const corsOptions = {
-  //origin: process.env.URL_REACT_LOCAL, // Substitua pelo domínio do seu aplicativo React
+  //origin: [process.env.URL_REACT_LOCAL, process.env.URL_REACT_ONLINE], // Inclua a URL do frontend online
+  origin: [urlReactLocal, urlReactRemoto], // Inclua a URL do frontend online
   optionsSuccessStatus: 200 // Algumas versões do CORS exigem isso
 };
 app.use(cors(corsOptions));
@@ -31,6 +34,11 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Erro de conexão ao MongoDB"));
 db.once("open", () => {
   console.log("Conectado ao MongoDB Atlas!");
+});
+
+app.use((req, res, next) => {
+  console.log(`Received request: ${req.method} ${req.url}`);
+  next();
 });
 
 const PORT = process.env.PORT || 3000;
