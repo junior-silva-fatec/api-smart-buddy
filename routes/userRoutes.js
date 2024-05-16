@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 
-// Rota para obter todos os users
+// Rota para obter todos os usuários
 router.get("/", async (req, res) => {
   try {
     const users = await User.find();
@@ -12,14 +12,16 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Rota para obter um user por ID
+// Rota para obter um usuário por ID
 router.get("/:id", getUser, (req, res) => {
   res.json(res.user);
 });
 
-// Rota para criar um novo user
+// Rota para criar um novo usuário
 router.post("/", async (req, res) => {
-  const user = new User({    
+  const user = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
   });
@@ -32,14 +34,19 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Rota para atualizar um user por ID
+// Rota para atualizar um usuário por ID
 router.put("/:id", getUser, async (req, res) => {
-  
   if (req.body.email != null) {
     res.user.email = req.body.email;
   }
   if (req.body.password != null) {
     res.user.password = req.body.password;
+  }
+  if (req.body.firstName != null) {
+    res.user.firstName = req.body.firstName;
+  }
+  if (req.body.lastName != null) {
+    res.user.lastName = req.body.lastName;
   }
 
   try {
@@ -50,31 +57,29 @@ router.put("/:id", getUser, async (req, res) => {
   }
 });
 
-// Rota para excluir um user por ID
+// Rota para excluir um usuário por ID
 router.delete("/:id", getUser, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (user == null) {
-      return res.status(404).json({ message: "Usuário não encontrado" });
-    }
-    res.user = user;
-    next();
+    await res.user.remove();
+    res.json({ message: "Usuário removido" });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
 async function getUser(req, res, next) {
+  let user;
   try {
-    const user = await User.findById(req.params.id)
+    user = await User.findById(req.params.id);
     if (user == null) {
-      return res.status(404).json({message: 'Usuário não encontrado'})
+      return res.status(404).json({ message: "Usuário não encontrado" });
     }
-    res.user = user;
-    next()
   } catch (err) {
-    return res.status(500).json({message: err.message})
+    return res.status(500).json({ message: err.message });
   }
+
+  res.user = user;
+  next();
 }
 
 module.exports = router;
