@@ -60,7 +60,7 @@ router.put("/:id", getUser, async (req, res) => {
 // Rota para excluir um usuário por ID
 router.delete("/:id", getUser, async (req, res) => {
   try {
-    await res.user.remove();
+    await res.user.deleteOne(); // Mudança aqui: de remove() para deleteOne()
     res.json({ message: "Usuário removido" });
   } catch (err) {
     res.status(500).json({ message: err.message });
