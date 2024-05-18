@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: [process.env.URL_REACT_LOCAL, process.env.URL_REACT_ONLINE],
+  origin: [process.env.URL_REACT_LOCAL, process.env.URL_REACT_ONLINE, "https://smart-buddy-git-main-juniors-projects-0236aaf7.vercel.app", "https://smart-buddy.vercel.app"],
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
